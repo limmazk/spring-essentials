@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Getter
 @Setter
 @Builder
-public class RolesEntity implements GrantedAuthority {
+public class RoleEntity implements GrantedAuthority {
 
     @Id
     private Integer id;

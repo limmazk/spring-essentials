@@ -1,8 +1,6 @@
 package br.com.limmazk.spring_boot_essentials.database.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 public class RoleEntity implements GrantedAuthority {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 

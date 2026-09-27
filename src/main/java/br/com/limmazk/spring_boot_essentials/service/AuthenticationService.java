@@ -5,13 +5,15 @@ import br.com.limmazk.spring_boot_essentials.database.model.AlunosEntity;
 import br.com.limmazk.spring_boot_essentials.database.model.RoleEntity;
 import br.com.limmazk.spring_boot_essentials.database.repository.IAlunosRepository;
 import br.com.limmazk.spring_boot_essentials.database.repository.IRoleRepository;
-import br.com.limmazk.spring_boot_essentials.dto.AlunoDto;
+import br.com.limmazk.spring_boot_essentials.dto.LoginRequestDto;
 import br.com.limmazk.spring_boot_essentials.dto.RegisterRequestDto;
+import br.com.limmazk.spring_boot_essentials.dto.TokenResponseDto;
 import br.com.limmazk.spring_boot_essentials.enums.RoleTypeEnum;
 import br.com.limmazk.spring_boot_essentials.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,18 +51,13 @@ public class AuthenticationService {
                 .build());
     }
 
-    public TokenResponseDTO login(LoginRequestDto loginDto) throws Exception{
+    public TokenResponseDto login(LoginRequestDto loginDto) throws Exception{
         try{
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getSenha())
-            );
+                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getSenha()));
+                    String token = tokenProvider.gerarToken(authentication);
 
-            String token = tokenProvider.generateToken(authentication);
-            return TokenResponseDTO.builder()
-                    .token(token)
-                    .type("Bearer")
-                    .expiration(expirationTime)
-                    .build();
+            return new TokenResponseDto(token, expirationTime);
         }catch (BadCredentialsException e){
             throw new BadRequestException("Credenciais inválidas");
         }catch (Exception e){

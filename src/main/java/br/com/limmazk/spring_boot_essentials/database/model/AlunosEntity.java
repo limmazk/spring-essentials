@@ -38,7 +38,7 @@ public class AlunosEntity implements UserDetails {
     @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
     private Set<TreinosEntity> treinos = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "alunos_roles",
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

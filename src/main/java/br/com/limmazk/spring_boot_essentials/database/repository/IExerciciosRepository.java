@@ -1,6 +1,6 @@
 package br.com.limmazk.spring_boot_essentials.database.repository;
 
-import model.database.br.com.limmazk.spring_boot_essentials.ExerciciosEntity;
+import br.com.limmazk.spring_boot_essentials.database.model.ExerciciosEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;

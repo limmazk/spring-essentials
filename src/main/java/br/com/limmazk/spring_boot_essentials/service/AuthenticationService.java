@@ -38,9 +38,9 @@ public class AuthenticationService {
             throw new BadRequestException("Email já cadastrado");
         }
 
-        RoleEntity role = roleRepository.findByNome(RoleTypeEnum.ALUNO.name())
+        RoleEntity role = roleRepository.findByNome(RoleTypeEnum.ROLE_ALUNO.name())
                 .orElseGet(() -> roleRepository.save(RoleEntity.builder()
-                        .nome(RoleTypeEnum.ALUNO.name())
+                        .nome(RoleTypeEnum.ROLE_ALUNO.name())
                         .build()));
 
         alunosRepository.save(AlunosEntity.builder()
